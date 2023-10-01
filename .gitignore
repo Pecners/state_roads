@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+plots*
+vid_plots*
+data*
+output.mp4
