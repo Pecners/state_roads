@@ -1,4 +1,6 @@
 library(av)
+library(tidyverse)
+library(glue)
 
 # st_counties <- counties(state = "Alabama")
 # 
@@ -19,12 +21,18 @@ these_dirs <- map_df(not_dc, function(i) {
   tibble(state = i, county = t_)
 })
 
+# full <- these_dirs |> 
+#   group_by(state) |> 
+#   mutate(count = n(),
+#          f_name = glue("{state}/{county}"),
+#          ind = row_number()) |> 
+#   arrange(count)
+
 full <- these_dirs |> 
   group_by(state) |> 
   mutate(count = n(),
          f_name = glue("{state}/{county}"),
-         ind = row_number()) |> 
-  arrange(count)
+         ind = row_number()) 
 
 first <- full |> 
   filter(ind == 1)
@@ -32,6 +40,34 @@ first <- full |>
 last <- full |> 
   group_by(state) |> 
   filter(ind == max(ind))
+
+# final <- full |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(first) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   bind_rows(last) |> 
+#   arrange(count, state, ind)
 
 final <- full |> 
   bind_rows(first) |> 
@@ -44,6 +80,16 @@ final <- full |>
   bind_rows(first) |> 
   bind_rows(first) |> 
   bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
+  bind_rows(first) |> 
   bind_rows(last) |> 
   bind_rows(last) |> 
   bind_rows(last) |> 
@@ -59,7 +105,22 @@ final <- full |>
   bind_rows(last) |> 
   bind_rows(last) |> 
   bind_rows(last) |> 
-  arrange(count, state, ind)
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  bind_rows(last) |> 
+  arrange(state, ind)
   
 
-av::av_encode_video(final$f_name)
+av::av_encode_video(final$f_name, framerate = 50)
